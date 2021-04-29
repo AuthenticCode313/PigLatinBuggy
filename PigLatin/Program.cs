@@ -35,17 +35,16 @@ namespace PigLatin
                         word = word + "way";
                         break;
                     }
-                    else//consonant
+                    else
                     {
                         for (int i = 0; i < word.Length; i++)
                         {
-                            //Console.WriteLine(word.Substring(i,1)); testing
+                            /
                             if (word.Substring(i, 1) == "a" || word.Substring(i, 1) == "e" || word.Substring(i, 1) == "i" || word.Substring(i, 1) == "o" || word.Substring(i, 1) == "u")
                             {
-                                //Console.WriteLine(word.Substring(0,i));//move to end testing
-                                //Console.WriteLine(word.Substring(i));//move to beginning testing
+                                
                                 word = word.Substring(i) + word.Substring(0, i) + "ay";
-                                break; // found our word. Need to exit loop
+                                break; 
                             }
                         }
                     }
@@ -53,7 +52,7 @@ namespace PigLatin
             }
             return word;
             
-             // return c.ToString() == vowels.ToString();
+             // return c.ToString() == vowels.ToString(); 
         }
 
         public static string ToPigLatin(string word)
@@ -73,7 +72,6 @@ namespace PigLatin
                 
             }
             
-            //Did not find use in this code. Not as organized to follow.
 
             //bool noVowels = true;
             //foreach(char letter in word)
