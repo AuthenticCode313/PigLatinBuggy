@@ -9,8 +9,10 @@ namespace PigLatin
         {
             string userInput = GetInput("Please input a word or sentence to translate to pig Latin");
 
-            string translation = ToPigLatin(userInput);
+            string translation = IsVowels(userInput); // just reworked vowels to display
             Console.WriteLine(translation);
+            //trying to figure out a way to display all methods in main
+            //Became very confused how to rework without redoing the entire project
         }
 
         public static string GetInput(string prompt)
@@ -20,11 +22,38 @@ namespace PigLatin
             return input;
         }
 
-        public static bool IsVowel(char c)
+        public static string IsVowels(string word)
         {
             char[] vowels = { 'a', 'e', 'i', 'o', 'u' };
+            word = word.ToLower();
+            foreach (char c in vowels)
+            {
+                foreach (char w in word)
+                {
+                    if (w == c)
+                    {
+                        word = word + "way";
+                        break;
+                    }
+                    else//consonant
+                    {
+                        for (int i = 0; i < word.Length; i++)
+                        {
+                            //Console.WriteLine(word.Substring(i,1)); testing
+                            if (word.Substring(i, 1) == "a" || word.Substring(i, 1) == "e" || word.Substring(i, 1) == "i" || word.Substring(i, 1) == "o" || word.Substring(i, 1) == "u")
+                            {
+                                //Console.WriteLine(word.Substring(0,i));//move to end testing
+                                //Console.WriteLine(word.Substring(i));//move to beginning testing
+                                word = word.Substring(i) + word.Substring(0, i) + "ay";
+                                break; // found our word. Need to exit loop
+                            }
+                        }
+                    }
+                }
+            }
+            return word;
             
-            return c.ToString() == vowels.ToString();
+             // return c.ToString() == vowels.ToString();
         }
 
         public static string ToPigLatin(string word)
@@ -43,47 +72,49 @@ namespace PigLatin
                 }
                 
             }
+            
+            //Did not find use in this code. Not as organized to follow.
 
-            bool noVowels = true;
-            foreach(char letter in word)
-            {
-                if (IsVowel(letter))
-                {
-                    noVowels = false;
-                }
-            }
+            //bool noVowels = true;
+            //foreach(char letter in word)
+            //{
+            //    if (IsVowel(letter))
+            //    {
+            //        noVowels = false;
+            //    }
+            //}
 
-            if (noVowels)
-            {
-                return word; 
-            }
+            //if (noVowels)
+            //{
+            //    return word; 
+            //}
 
-            char firstLetter = word[0];
-            string output = "placeholder";
-            if (IsVowel(firstLetter) == true)
-            {
-                output = word + "ay";
-            }
-            else
-            {
-                int vowelIndex = -1;
-                //Handle going through all the consonants
-                for (int i = 0; i <= word.Length; i++)
-                {
-                    if (IsVowel(word[i]) == true)
-                    {
-                        vowelIndex = i;
-                        break;
-                    }
-                }
+            //char firstLetter = word[0];
+            //string output = "placeholder";
+            //if (IsVowel(firstLetter) == true)
+            //{
+            //    output = word + "way";//fixed speling bug from "ay" to "way"
+            //}
+            //else
+            //{
+            //    int vowelIndex = -1;
+            //    //Handle going through all the consonants
+            //    for (int i = 0; i <= word.Length; i++)
+            //    {
+            //        if (IsVowel(word[i]) == true)
+            //        {
+            //            vowelIndex = i;
+            //            break;
+            //        }
+            //    }
 
-                string sub = word.Substring(vowelIndex + 1);
-                string postFix = word.Substring(0, vowelIndex -1);
+            //    string sub = word.Substring(vowelIndex + 1);
+            //    string postFix = word.Substring(0, vowelIndex -1);
 
-                output = sub + postFix + "ay";
-            }
+            //    output = sub + postFix + "ay";
+            //}
 
-            return output;
+            return word;
         }
     }
 }
